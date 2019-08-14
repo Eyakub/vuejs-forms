@@ -13,6 +13,18 @@
                     <textarea type="text" class="form-control" id="content" cols="30" rows="10" v-model="post.content"></textarea>
                 </div>
 
+                <div class="form-group">
+                    <input type="checkbox" id="publish-immediately" v-model="post.publishImmediately" true-value="immediately" false-value="later">
+                    <label for="publish-immediately">Publish Immediately</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Share On</label>
+                    <div v-for="media in formData.socialMedia" :key="media">
+                        <input type="checkbox" name="media" :id="media" :value="media" v-model="post.shareOn">
+                        <label :for="media">{{ media }}</label>
+                    </div>
+                </div>
             </form>
             <hr>
             <table class="table table-stripped">
