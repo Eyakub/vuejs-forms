@@ -5,12 +5,12 @@
             <form>
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" v-model="post.title">
+                    <input type="text" class="form-control" id="title" v-model.trim="post.title">
                 </div>
 
                 <div class="form-group">
                     <label for="title">Content</label>
-                    <textarea type="text" class="form-control" id="content" cols="30" rows="10" v-model="post.content"></textarea>
+                    <textarea type="text" class="form-control" id="content" cols="30" rows="10" v-model.lazy="post.content"></textarea>
                 </div>
 
                 <div class="form-group">
