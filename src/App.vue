@@ -2,7 +2,7 @@
     <div class="container">
         <div class="col-xs-12">
             <h1>Add Blog Post</h1>
-            <form>
+            <form @submit.prevent="isSubmitted = true">
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" v-model.trim="post.title">
@@ -10,11 +10,11 @@
 
                 <div class="form-group">
                     <label for="title">Content</label>
-                    <textarea type="text" class="form-control" id="content" cols="30" rows="10" v-model.lazy="post.content"></textarea>
+                    <textarea type="text" class="form-control" v-model.lazy.trim="post.content" id="content" cols="30" rows="10" ></textarea>
                 </div>
 
                 <div class="form-group">
-                    <input type="checkbox" id="publish-immediately" v-model="post.publishImmediately" true-value="immediately" false-value="later">
+                    <input type="checkbox" id="publish-immediately" v-model="post.publishImmediately" >  <!-- true-value="immediately" false-value="later" -->
                     <label for="publish-immediately">Publish Immediately</label>
                 </div>
 
@@ -36,14 +36,17 @@
 
                 <div class="form-group">
                     <select name="" class="form-control" id="select-series" v-model="post.series">
+                        <option value="">Choose Series</option>
                         <option :value="series" v-for="series in formData.series" :key="series">{{ series }}</option>
                     </select>
                 </div>
+
+                <input type="submit" value="Publish" class="btn btn-primary">
             </form>
 
             <hr>
 
-            <table class="table table-stripped">
+            <table class="table table-stripped" v-if="isSubmitted">
                 <thead>
                     <tr>
                         <td class="col-xs-6"><strong>Field</strong></td>
@@ -92,13 +95,15 @@
 export default {
     data(){
         return {
+            isSubmitted: false,
             post:{
                 title: '',
                 content: '',
-                publishImmediately: false,
-                shareOn: [],
-                category: '',
+                publishImmediately: true,
+                shareOn: ['Facebook'],
+                category: 'Backend',
                 series: '',
+                // series: 'Complete guide to elasticsearch',
             },
             formData:{
                 socialMedia: ['Facebook', 'Twitter'],
